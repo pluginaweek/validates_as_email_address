@@ -93,7 +93,7 @@ module ActiveRecord #:nodoc:
         configuration = (attr_names.pop if attr_names.last.is_a?(Hash)) || {}
         configuration.reverse_merge!(
           :message => ActiveRecord::Errors.default_error_messages[:invalid_email]
-        }
+        )
         
         # Add format validation
         format_configuration = configuration.select {|key, value| EMAIL_BOTH_OPTIONS.include?(key)}
