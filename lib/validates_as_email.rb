@@ -90,18 +90,18 @@ module ActiveRecord #:nodoc:
       # method, proc or string should return or evaluate to a true or false value.
       # 
       def validates_as_email(*attr_names)
-        configuration = (attr_names.pop if attr_names.last.is_a?(Hash)) || {}
+        configuration = attr_names.last.is_a?(Hash) ? attr_names.pop : {}
         configuration.reverse_merge!(
           :message => ActiveRecord::Errors.default_error_messages[:invalid_email]
         )
         
         # Add format validation
-        format_configuration = configuration.select {|key, value| EMAIL_BOTH_OPTIONS.include?(key)}
+        format_configuration = configuration.reject {|key, value| !EMAIL_BOTH_OPTIONS.include?(key)}
         format_configuration[:with] = RFC822::EmailAddress
-        validates_format_of attr_names, configuration
+        validates_format_of attr_names, format_configuration
         
         # Add length validation
-        length_configuration = configuration.select {|key, value| (EMAIL_LENGTH_OPTIONS + EMAIL_BOTH_OPTIONS).include?(key)}
+        length_configuration = configuration.reject {|key, value| !(EMAIL_LENGTH_OPTIONS + EMAIL_BOTH_OPTIONS).include?(key)}
         length_configuration.reverse_merge!(:within => 3..384)
         validates_length_of attr_names, length_configuration
       end
