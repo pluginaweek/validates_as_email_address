@@ -1,1 +1,1 @@
-require 'validates_as_email'
+require 'validates_as_email_address'

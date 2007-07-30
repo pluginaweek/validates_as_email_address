@@ -1,12 +1,14 @@
-= validates_anyclusion_of_with_partial
+= validates_as_email_address
 
-validates_anyclusion_of_with_partial .
+validates_as_email_address is a monkey match of validates_as_email which adds a
+broader range of options, as well as an additional validation regarding the
+length of the email address.
 
 == Resources
 
 Wiki
 
-* http://wiki.pluginaweek.org/Validates_anyclusion_of_with_partial
+* http://wiki.pluginaweek.org/Validates_as_email_address
 
 Announcement
 
@@ -14,17 +16,24 @@ Announcement
 
 Source
 
-* http://svn.pluginaweek.org/trunk/plugins/active_record/validations/validates_anyclusion_of_with_partial
+* http://svn.pluginaweek.org/trunk/plugins/active_record/validations/validates_as_email_address
 
 Development
 
-* http://dev.pluginaweek.org/browser/trunk/plugins/active_record/validations/validates_anyclusion_of_with_partial
+* http://dev.pluginaweek.org/browser/trunk/plugins/active_record/validations/validates_as_email_address
 
 == Description
 
 
 == References
 
-Ximon Eighteen <ximon.eighteen@int.greenpeace.org>
-Dan Kubb <dan.kubb@autopilotmarketing.com>
-Thijs van der Vossen <thijs@fngtps.com>
+=== RFC822 Regular Expression
+
+Originally written by Cal Henderson
+c.f. http://iamcal.com/publish/articles/php/parsing_email/
+
+Translated to Ruby by Tim Fletcher, with changes suggested by Dan Kubb <dan.kubb@autopilotmarketing.com>
+
+=== validates_as_email
+
+Original code by Ximon Eighteen <ximon.eightee@int.greenpeace.org> and Thijs van der Vossen <thijs@fngtps.com>
