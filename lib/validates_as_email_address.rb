@@ -64,7 +64,7 @@ module PluginAWeek #:nodoc:
       # method, proc or string should return or evaluate to a true or false value.
       def validates_as_email_address(*attr_names)
         configuration = attr_names.last.is_a?(Hash) ? attr_names.pop : {}
-        configuration.assert_valid_keys(EMAIL_FORMAT_OPTIONS & EMAIL_LENGTH_OPTIONS)
+        configuration.assert_valid_keys(EMAIL_FORMAT_OPTIONS | EMAIL_LENGTH_OPTIONS)
         configuration.reverse_merge!(
           :message => ActiveRecord::Errors.default_error_messages[:invalid_email]
         )
