@@ -31,7 +31,7 @@ spec = Gem::Specification.new do |s|
   s.name            = PKG_NAME
   s.version         = PKG_VERSION
   s.platform        = Gem::Platform::RUBY
-  s.summary         = ''
+  s.summary         = 'Adds support for validating the format/length of email addresses'
   
   s.files           = FileList['{lib,test}/**/*'].to_a + %w(CHANGELOG init.rb LICENSE Rakefile README)
   s.require_path    = 'lib'

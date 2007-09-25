@@ -19,10 +19,11 @@ end
 
 module PluginAWeek #:nodoc:
   module Validates #:nodoc:
+    # Adds validations for email addresses
     module EmailAddress
       # The options that can be used when validating the format of the email address
       EMAIL_FORMAT_OPTIONS = [
-        :message,
+        :wrong_format,
         :allow_nil,
         :on,
         :if
@@ -43,6 +44,16 @@ module PluginAWeek #:nodoc:
         :if
       ]
       
+      # Validates whether the value of the specific attribute matches against the
+      # RFC822 specificiation.
+      # 
+      #   class Person < ActiveRecord::Base
+      #     validates_as_email_address :email, :on => :create
+      #   end
+      # 
+      # This will also validate that the email address is within the specification
+      # limits, specifically between 3 and 320 characters in length.
+      # 
       # Configuration options for length:
       # * <tt>minimum</tt> - The minimum size of the attribute
       # * <tt>maximum</tt> - The maximum size of the attribute
@@ -50,11 +61,11 @@ module PluginAWeek #:nodoc:
       # * <tt>within</tt> - A range specifying the minimum and maximum size of the attribute
       # * <tt>in</tt> - A synonym(or alias) for :within
       # * <tt>too_long</tt> - The error message if the attribute goes over the maximum (default is: "is too long (maximum is %d characters)")
-      # * <tt>too_short</tt> - The error message if the attribute goes under the minimum (default is: "is too short (min is %d characters)")
+      # * <tt>too_short</tt> - The error message if the attribute goes under the minimum (default is: "is too short (minimum is %d characters)")
       # * <tt>wrong_length</tt> - The error message if using the :is method and the attribute is the wrong size (default is: "is the wrong length (should be %d characters)")
       # 
       # Configuration options for format:
-      # * <tt>message</tt> - A custom error message
+      # * <tt>wrong_format</tt> - A custom error message (default is: "is an invalid email address")
       # 
       # Configuration options for both length and format:
       # * <tt>allow_nil</tt> - Attribute may be nil; skip validation.
@@ -66,11 +77,12 @@ module PluginAWeek #:nodoc:
         configuration = attr_names.last.is_a?(Hash) ? attr_names.pop : {}
         configuration.assert_valid_keys(EMAIL_FORMAT_OPTIONS | EMAIL_LENGTH_OPTIONS)
         configuration.reverse_merge!(
-          :message => ActiveRecord::Errors.default_error_messages[:invalid_email]
+          :wrong_format => ActiveRecord::Errors.default_error_messages[:invalid_email]
         )
         
         # Add format validation
         format_configuration = configuration.reject {|key, value| !EMAIL_FORMAT_OPTIONS.include?(key)}
+        format_configuration[:message] = format_configuration.delete(:wrong_format)
         format_configuration[:with] = RFC822::EmailAddress
         validates_format_of attr_names, format_configuration
         
@@ -88,5 +100,5 @@ ActiveRecord::Base.class_eval do
 end
 
 ActiveRecord::Errors.default_error_messages.update(
-  :invalid_email => 'is an invalid email'
+  :invalid_email => 'is an invalid email address'
 )

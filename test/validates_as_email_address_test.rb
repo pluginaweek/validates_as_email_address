@@ -1,7 +1,10 @@
 require File.dirname(__FILE__) + '/test_helper'
 
-class TestRecord < ActiveRecord::Base
-  def self.columns; []; end
+class User < ActiveRecord::Base
+  def self.columns
+    []
+  end
+  
   attr_accessor :email
   validates_as_email_address :email
 end
@@ -13,7 +16,7 @@ class ValidatesAsEmailAddressTest < Test::Unit::TestCase
       'Job@Book of Job',
       'J. P. \'s-Gravezande, a.k.a. The Hacker!@example.com',
     ].each do |address|
-      assert !TestRecord.new(:email => address).valid?, "#{address} should be illegal."
+      assert !User.new(:email => address).valid?, "#{address} should be illegal."
     end
   end
   
@@ -26,7 +29,7 @@ class ValidatesAsEmailAddressTest < Test::Unit::TestCase
       'me@[187.223.45.119]',
       'someone@123.com',
     ].each do |address|
-      assert TestRecord.new(:email => address).valid?, "#{address} should be legal."
+      assert User.new(:email => address).valid?, "#{address} should be legal."
     end
   end
 end
