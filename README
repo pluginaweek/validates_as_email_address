@@ -5,25 +5,25 @@ email addresses.
 
 == Resources
 
-API
+Announcement
 
-* http://api.pluginaweek.org/validates_as_email_address
+* http://www.pluginaweek.org
 
 Wiki
 
 * http://wiki.pluginaweek.org/Validates_as_email_address
 
-Announcement
+API
 
-* http://www.pluginaweek.org
-
-Source
-
-* http://svn.pluginaweek.org/trunk/plugins/active_record/validations/validates_as_email_address
+* http://api.pluginaweek.org/validates_as_email_address
 
 Development
 
 * http://dev.pluginaweek.org/browser/trunk/plugins/active_record/validations/validates_as_email_address
+
+Source
+
+* http://svn.pluginaweek.org/trunk/plugins/active_record/validations/validates_as_email_address
 
 == Description
 
