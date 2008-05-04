@@ -5,10 +5,6 @@ email addresses.
 
 == Resources
 
-Announcement
-
-* http://www.pluginaweek.org
-
 Wiki
 
 * http://wiki.pluginaweek.org/Validates_as_email_address
@@ -19,11 +15,11 @@ API
 
 Development
 
-* http://dev.pluginaweek.org/browser/trunk/plugins/active_record/validations/validates_as_email_address
+* http://dev.pluginaweek.org/browser/trunk/validates_as_email_address
 
 Source
 
-* http://svn.pluginaweek.org/trunk/plugins/active_record/validations/validates_as_email_address
+* http://svn.pluginaweek.org/trunk/validates_as_email_address
 
 == Description
 
@@ -40,6 +36,11 @@ the email address.
   class Person < ActiveRecord::Base
     validates_as_email_address :email, :on => :create
   end
+
+== Testing
+
+Before you can run any tests, the following gem must be installed:
+* plugin_test_helper[http://wiki.pluginaweek.org/Plugin_test_helper]
 
 == References
 

@@ -1,16 +1,7 @@
-require File.dirname(__FILE__) + '/test_helper'
-
-class User < ActiveRecord::Base
-  def self.columns
-    []
-  end
-  
-  attr_accessor :email
-  validates_as_email_address :email
-end
+require File.dirname(__FILE__) + '/../test_helper'
 
 class ValidatesAsEmailAddressTest < Test::Unit::TestCase
-  def test_illegal_rfc822_email_address_should_not_be_valid
+  def test_should_require_legal_rfc822_format
     [
       'Max@Job 3:14', 
       'Job@Book of Job',
@@ -18,9 +9,7 @@ class ValidatesAsEmailAddressTest < Test::Unit::TestCase
     ].each do |address|
       assert !User.new(:email => address).valid?, "#{address} should be illegal."
     end
-  end
-  
-  def test_legal_rfc822_email_address_should_be_valid
+    
     [
       'test@example',
       'test@example.com', 
@@ -31,5 +20,10 @@ class ValidatesAsEmailAddressTest < Test::Unit::TestCase
     ].each do |address|
       assert User.new(:email => address).valid?, "#{address} should be legal."
     end
+  end
+  
+  def test_not_allow_email_addresses_longer_than_320_characters
+    assert User.new(:email => 'a' * 314 + '@a.com').valid?
+    assert !User.new(:email => 'a' * 315 + '@a.com').valid?
   end
 end

@@ -1,6 +1,7 @@
-require 'test/unit'
+# Load the plugin testing framework
+$:.unshift("#{File.dirname(__FILE__)}/../../plugin_test_helper/lib")
 require 'rubygems'
-require 'active_record'
+require 'plugin_test_helper'
 
-$:.unshift(File.dirname(__FILE__) + '/../lib')
-require File.dirname(__FILE__) + '/../init'
+# Run the migrations
+ActiveRecord::Migrator.migrate("#{RAILS_ROOT}/db/migrate")
