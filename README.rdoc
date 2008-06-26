@@ -5,21 +5,21 @@ email addresses.
 
 == Resources
 
-Wiki
-
-* http://wiki.pluginaweek.org/Validates_as_email_address
-
 API
 
 * http://api.pluginaweek.org/validates_as_email_address
 
+Bugs
+
+* http://pluginaweek.lighthouseapp.com/projects/13293-validates_as_email_address
+
 Development
 
-* http://dev.pluginaweek.org/browser/trunk/validates_as_email_address
+* http://github.com/pluginaweek/validates_as_email_address
 
 Source
 
-* http://svn.pluginaweek.org/trunk/validates_as_email_address
+* git://github.com/pluginaweek/validates_as_email_address.git
 
 == Description
 
@@ -40,7 +40,7 @@ the email address.
 == Testing
 
 Before you can run any tests, the following gem must be installed:
-* plugin_test_helper[http://wiki.pluginaweek.org/Plugin_test_helper]
+* plugin_test_helper[http://github.com/pluginaweek/plugin_test_helper]
 
 To run against a specific version of Rails:
 
