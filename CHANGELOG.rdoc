@@ -1,0 +1,13 @@
+== master
+
+== 0.0.3 / 2008-06-22
+
+* Remove log files from gems
+
+== 0.0.2 / 2008-05-05
+
+* Update documentation
+
+== 0.0.1 / 2007-09-26
+
+* Add documentation
