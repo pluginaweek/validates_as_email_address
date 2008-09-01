@@ -53,7 +53,7 @@ module PluginAWeek #:nodoc:
     # * +allow_nil+ - Attribute may be nil; skip validation.
     # * +on+ - Specifies when this validation is active (default is :save, other options :create, :update)
     # * +if+ - Specifies a method, proc or string to call to determine if the validation should
-    # occur (e.g. :if => :allow_validation, or :if => Proc.new { |user| user.signup_step > 2 }).  The
+    # occur (e.g. :if => :allow_validation, or :if => lambda { |user| user.signup_step > 2 }).  The
     # method, proc or string should return or evaluate to a true or false value.
     def validates_as_email_address(*attr_names)
       configuration = attr_names.last.is_a?(Hash) ? attr_names.pop : {}
