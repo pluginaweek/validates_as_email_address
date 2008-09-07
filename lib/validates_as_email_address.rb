@@ -1,40 +1,18 @@
 require 'validates_as_email_address/rfc_822'
+require 'validates_as_email_address/rfc_1035'
 
 module PluginAWeek #:nodoc:
   # Adds validations for email addresses
   module ValidatesAsEmailAddress
-    # The options that can be used when validating the format of the email address
-    EMAIL_FORMAT_OPTIONS = [
-      :wrong_format,
-      :allow_nil,
-      :on,
-      :if
-    ]
-    
-    # The options that can be used when validating the length of the email address
-    EMAIL_LENGTH_OPTIONS = [
-      :minimum,
-      :maximum,
-      :is,
-      :within,
-      :in,
-      :too_long,
-      :too_short,
-      :wrong_length,
-      :allow_nil,
-      :on,
-      :if
-    ]
-    
     # Validates whether the value of the specific attribute matches against the
-    # RFC822 specificiation.
+    # RFC822/RFC1035 specification.
     # 
     #   class Person < ActiveRecord::Base
     #     validates_as_email_address :email, :on => :create
     #   end
     # 
     # This will also validate that the email address is within the specification
-    # limits, specifically between 3 and 320 characters in length.
+    # limits, i.e. between 3 and 320 characters in length.
     # 
     # Configuration options for length:
     # * +minimum+ - The minimum size of the attribute
@@ -49,28 +27,29 @@ module PluginAWeek #:nodoc:
     # Configuration options for format:
     # * +wrong_format+ - A custom error message (default is: "is an invalid email address")
     # 
-    # Configuration options for both length and format:
+    # Miscellaneous configuration options:
     # * +allow_nil+ - Attribute may be nil; skip validation.
     # * +on+ - Specifies when this validation is active (default is :save, other options :create, :update)
     # * +if+ - Specifies a method, proc or string to call to determine if the validation should
     # occur (e.g. :if => :allow_validation, or :if => lambda { |user| user.signup_step > 2 }).  The
     # method, proc or string should return or evaluate to a true or false value.
+    # * +strict+ - Specifies if the domain part of the email should be compliant to RFC 1035 (default is true). If set to false domains such as '-online.com', '[127.0.0.1]' become valid.
     def validates_as_email_address(*attr_names)
       configuration = attr_names.last.is_a?(Hash) ? attr_names.pop : {}
-      configuration.assert_valid_keys(EMAIL_FORMAT_OPTIONS | EMAIL_LENGTH_OPTIONS)
       configuration.reverse_merge!(
-        :wrong_format => ActiveRecord::Errors.default_error_messages[:invalid_email]
+        :wrong_format => ActiveRecord::Errors.default_error_messages[:invalid_email],
+        :strict => true
       )
       
       # Add format validation
-      format_configuration = configuration.reject {|key, value| !EMAIL_FORMAT_OPTIONS.include?(key)}
-      format_configuration[:message] = format_configuration.delete(:wrong_format)
-      format_configuration[:with] = RFC822::EmailAddress
+      format_configuration = configuration.dup
+      format_configuration[:message] = configuration.delete(:wrong_format)
+      format_configuration[:with] = configuration[:strict] ? RFC1035::EmailAddress : RFC822::EmailAddress
       validates_format_of attr_names, format_configuration
       
       # Add length validation
-      length_configuration = configuration.reject {|key, value| !EMAIL_LENGTH_OPTIONS.include?(key)}
-      length_configuration.reverse_merge!(:within => 3..320)
+      length_configuration = configuration.dup
+      length_configuration.reverse_merge!(:within => 3..320) unless ([:minimum, :maximum, :is, :within, :in] & configuration.keys).any?
       validates_length_of attr_names, length_configuration
     end
   end
@@ -80,6 +59,7 @@ ActiveRecord::Base.class_eval do
   extend PluginAWeek::ValidatesAsEmailAddress
 end
 
+# Add error messages specific to this validation
 ActiveRecord::Errors.default_error_messages.update(
   :invalid_email => 'is an invalid email address'
 )

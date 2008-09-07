@@ -1,5 +1,9 @@
 == master
 
+* Allow all options to be passed to format/length validations so that future options can be defined without changing this plugin
+* Add support for overriding length limits
+* Add support for requiring that domains follow the RFC 1035 format (on by default) [Kacper Bielecki]
+
 == 0.0.3 / 2008-06-22
 
 * Remove log files from gems
