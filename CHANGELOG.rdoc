@@ -1,5 +1,7 @@
 == master
 
+== 0.1.0 / 2008-09-07
+
 * Allow all options to be passed to format/length validations so that future options can be defined without changing this plugin
 * Add support for overriding length limits
 * Add support for requiring that domains follow the RFC 1035 format (on by default) [Kacper Bielecki]
