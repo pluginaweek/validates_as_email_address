@@ -1,5 +1,7 @@
 == master
 
+== 0.1.1 / 2008-10-25
+
 * Fix major performance hit on long domains when in strict mode
 * Fix single-character/digit domains not being allowed in strict mode
 
