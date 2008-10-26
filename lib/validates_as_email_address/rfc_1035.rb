@@ -9,7 +9,7 @@ module PluginAWeek #:nodoc:
         letter = "[\\x61-\\x7a\\x41-\\x5a]"
         let_dig = "(?:#{letter}|#{digit})"
         let_dig_hyp = "(?:#{let_dig}|[\\x2d])"
-        label = "#{let_dig}#{let_dig_hyp}*#{let_dig}?"
+        label = "#{let_dig}(?:#{let_dig_hyp}*#{let_dig})?"
         subdomain = "(?:#{label}\\.)*#{label}"
         domain = "(?:#{subdomain}|\\x20)"
         

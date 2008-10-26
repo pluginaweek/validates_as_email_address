@@ -51,8 +51,8 @@ class ValidatesAsEmailAddressByDefaultTest < Test::Unit::TestCase
   def test_should_not_allow_illegal_rfc1035_formats
     [
       'test@[127.0.0.1]',
-      'test@-domain_not_starting_with_letter.com',
-      'test@domain_not_ending_with_alphanum-.com'
+      'test@-domain-not-starting-with-letter.com',
+      'test@domain-not-ending-with-alphanum-.com'
     ].each do |address|
       user = new_user(:email => address)
       assert !user.valid?, "#{address} should be illegal."
@@ -230,8 +230,8 @@ class ValidatesAsEmailAddressUnrestrictedTest < Test::Unit::TestCase
   def test_should_allow_illegal_rfc1035_formats
     [
       'test@[127.0.0.1]',
-      'test@-domain_not_starting_with_letter.com',
-      'test@domain_not_ending_with_alphanum-.com'
+      'test@-domain-not-starting-with-letter.com',
+      'test@domain-not-ending-with-alphanum-.com'
     ].each do |address|
       user = new_user(:email => address)
       assert user.valid?, "#{address} should be legal."
