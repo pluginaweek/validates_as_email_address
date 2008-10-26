@@ -9,10 +9,16 @@ class ValidatesAsEmailAddressByDefaultTest < Test::Unit::TestCase
     user = new_user(:email => 'a@')
     assert !user.valid?
     assert_equal 2, Array(user.errors.on(:email)).size
+    
+    user.email = 'a@a'
+    assert user.valid?
   end
   
   def test_should_not_allow_email_addresses_longer_than_320_characters
-    user = new_user(:email => 'a@' + 'a' * 315 + '.com')
+    user = new_user(:email => 'a@' + 'a' * 318)
+    assert user.valid?
+    
+    user.email += 'a'
     assert !user.valid?
     assert_equal 1, Array(user.errors.on(:email)).size
   end
@@ -66,34 +72,34 @@ class ValidatesAsEmailAddressTest < Test::Unit::TestCase
   def test_should_allow_minimum_length
     User.validates_as_email_address :email, :minimum => 8
     
-    user = new_user(:email => 'a@aa.com')
+    user = new_user(:email => 'a@' + 'a' * 6)
     assert user.valid?
     
-    user = new_user(:email => 'a@a.com')
+    user.email.chop!
     assert !user.valid?
   end
   
   def test_should_not_check_maximum_length_if_minimum_length_defined
     User.validates_as_email_address :email, :minimum => 10
     
-    user = new_user(:email => 'a@' + 'a' * 315 + '.com')
+    user = new_user(:email => 'a@' + 'a' * 319)
     assert user.valid?
   end
   
   def test_should_allow_maximum_length
     User.validates_as_email_address :email, :maximum => 8
     
-    user = new_user(:email => 'a@aa.com')
+    user = new_user(:email => 'a@' + 'a' * 6)
     assert user.valid?
     
-    user = new_user(:email => 'a@aaa.com')
+    user.email += 'a'
     assert !user.valid?
   end
   
   def test_should_not_check_minimum_length_if_maximum_length_defined
     User.validates_as_email_address :email, :maximum => 8
     
-    user = new_user(:email => 'a@a')
+    user = new_user(:email => 'a@')
     assert !user.valid?
     assert_equal 1, Array(user.errors.on(:email)).size
   end
@@ -101,52 +107,52 @@ class ValidatesAsEmailAddressTest < Test::Unit::TestCase
   def test_should_allow_exact_length
     User.validates_as_email_address :email, :is => 8
     
-    user = new_user(:email => 'a@aa.com')
+    user = new_user(:email => 'a@' + 'a' * 6)
     assert user.valid?
     
-    user = new_user(:email => 'a@a.com')
+    user.email.chop!
     assert !user.valid?
     
-    user = new_user(:email => 'a@aaa.com')
+    user.email += 'aa'
     assert !user.valid?
   end
   
   def test_should_allow_within_range
-    User.validates_as_email_address :email, :within => 8..10
+    User.validates_as_email_address :email, :within => 8..9
     
-    user = new_user(:email => 'a@a.com')
+    user = new_user(:email => 'a@' + 'a' * 5)
     assert !user.valid?
     
-    user = new_user(:email => 'a@aa.com')
+    user.email += 'a'
     assert user.valid?
     
-    user = new_user(:email => 'a@aaaa.com')
+    user.email += 'a'
     assert user.valid?
     
-    user = new_user(:email => 'a@aaaaa.com')
+    user.email += 'a'
     assert !user.valid?
   end
   
   def test_should_allow_in_range
-    User.validates_as_email_address :email, :in => 8..10
+    User.validates_as_email_address :email, :in => 8..9
     
-    user = new_user(:email => 'a@a.com')
+    user = new_user(:email => 'a@' + 'a' * 5)
     assert !user.valid?
     
-    user = new_user(:email => 'a@aa.com')
+    user.email += 'a'
     assert user.valid?
     
-    user = new_user(:email => 'a@aaaa.com')
+    user.email += 'a'
     assert user.valid?
     
-    user = new_user(:email => 'a@aaaaa.com')
+    user.email += 'a'
     assert !user.valid?
   end
   
   def test_should_allow_too_long_message
     User.validates_as_email_address :email, :too_long => 'custom'
     
-    user = new_user(:email => 'a@' + 'a' * 315 + '.com')
+    user = new_user(:email => 'a@' + 'a' * 319)
     user.valid?
     
     assert_equal 'custom', Array(user.errors.on(:email)).last
@@ -171,9 +177,9 @@ class ValidatesAsEmailAddressTest < Test::Unit::TestCase
   end
   
   def test_should_allow_wrong_format_message
-    User.validates_as_email_address :email, :is => 8, :wrong_format => 'custom'
+    User.validates_as_email_address :email, :wrong_format => 'custom'
     
-    user = new_user(:email => 'a@a')
+    user = new_user(:email => 'a@!')
     user.valid?
     
     assert_equal 'custom', Array(user.errors.on(:email)).first

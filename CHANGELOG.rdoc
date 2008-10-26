@@ -1,5 +1,8 @@
 == master
 
+* Fix major performance hit on long domains when in strict mode
+* Fix single-character/digit domains not being allowed in strict mode
+
 == 0.1.0 / 2008-09-07
 
 * Allow all options to be passed to format/length validations so that future options can be defined without changing this plugin
