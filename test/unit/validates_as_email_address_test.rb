@@ -8,7 +8,7 @@ class ValidatesAsEmailAddressByDefaultTest < Test::Unit::TestCase
   def test_should_not_allow_email_addresses_shorter_than_3_characters
     user = new_user(:email => 'a@')
     assert !user.valid?
-    assert_equal 2, Array(user.errors.on(:email)).size
+    assert user.errors.invalid?(:email)
     
     user.email = 'a@a'
     assert user.valid?
@@ -20,7 +20,7 @@ class ValidatesAsEmailAddressByDefaultTest < Test::Unit::TestCase
     
     user.email += 'a'
     assert !user.valid?
-    assert_equal 1, Array(user.errors.on(:email)).size
+    assert user.errors.invalid?(:email)
   end
   
   def test_should_allow_legal_rfc822_formats
@@ -44,7 +44,7 @@ class ValidatesAsEmailAddressByDefaultTest < Test::Unit::TestCase
     ].each do |address|
       user = new_user(:email => address)
       assert !user.valid?, "#{address} should be illegal."
-      assert_equal 1, Array(user.errors.on(:email)).size
+      assert user.errors.invalid?(:email)
     end
   end
   
@@ -101,7 +101,7 @@ class ValidatesAsEmailAddressTest < Test::Unit::TestCase
     
     user = new_user(:email => 'a@')
     assert !user.valid?
-    assert_equal 1, Array(user.errors.on(:email)).size
+    assert user.errors.invalid?(:email)
   end
   
   def test_should_allow_exact_length
