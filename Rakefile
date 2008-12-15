@@ -5,7 +5,7 @@ require 'rake/contrib/sshpublisher'
 
 spec = Gem::Specification.new do |s|
   s.name              = 'validates_as_email_address'
-  s.version           = '0.1.1'
+  s.version           = '0.2.0'
   s.platform          = Gem::Platform::RUBY
   s.summary           = 'Adds support for validating the format/length of email addresses'
   
