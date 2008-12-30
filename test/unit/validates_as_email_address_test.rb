@@ -186,28 +186,28 @@ class ValidatesAsEmailAddressTest < Test::Unit::TestCase
   end
   
   def test_should_validate_if_if_is_true
-    User.validates_as_email_address :email, :if => lambda {true}
+    User.validates_as_email_address :email, :if => lambda {|user| true}
     
     user = new_user(:email => 'a')
     assert !user.valid?
   end
   
   def test_should_not_validate_if_if_is_false
-    User.validates_as_email_address :email, :if => lambda {false}
+    User.validates_as_email_address :email, :if => lambda {|user| false}
     
     user = new_user(:email => 'a')
     assert user.valid?
   end
   
   def test_should_validate_if_unless_is_false
-    User.validates_as_email_address :email, :unless => lambda {false}
+    User.validates_as_email_address :email, :unless => lambda {|user| false}
     
     user = new_user(:email => 'a')
     assert !user.valid?
   end
   
   def test_should_not_validate_if_unless_is_true
-    User.validates_as_email_address :email, :unless => lambda {true}
+    User.validates_as_email_address :email, :unless => lambda {|user| true}
     
     user = new_user(:email => 'a')
     assert user.valid?
@@ -235,6 +235,14 @@ class ValidatesAsEmailAddressUnrestrictedTest < Test::Unit::TestCase
     ].each do |address|
       user = new_user(:email => address)
       assert user.valid?, "#{address} should be legal."
+    end
+  end
+  
+  def teardown
+    User.class_eval do
+      @validate_callbacks = ActiveSupport::Callbacks::CallbackChain.new
+      @validate_on_create_callbacks = ActiveSupport::Callbacks::CallbackChain.new
+      @validate_on_update_callbacks = ActiveSupport::Callbacks::CallbackChain.new
     end
   end
 end

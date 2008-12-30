@@ -14,11 +14,13 @@ module ValidatesAsEmailAddress
       # Local part
       word = "(?:#{atom}|#{quoted_string})"
       local_part = "#{word}(?:\\x2e#{word})*"
+      local_part.force_encoding('binary') if local_part.respond_to?(:force_encoding)
       
       # Domain
       domain_ref = atom
       sub_domain = "(?:#{domain_ref}|#{domain_literal})"
       domain = "#{sub_domain}(?:\\x2e#{sub_domain})*"
+      domain.force_encoding('binary') if domain.respond_to?(:force_encoding)
       
       [/#{local_part}/, /#{domain}/]
     end
@@ -28,6 +30,7 @@ module ValidatesAsEmailAddress
       local_part = LocalPart.source
       domain = Domain.source
       addr_spec = "(#{local_part})\\x40(#{domain})"
+      addr_spec.force_encoding('binary') if addr_spec.respond_to?(:force_encoding)
       
       /\A#{addr_spec}\z/
     end

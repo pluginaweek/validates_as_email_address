@@ -1,5 +1,7 @@
 == master
 
+* Ensure correct encoding for regular expressions to be compatible with Ruby 1.9+
+
 == 0.2.0 / 2008-12-14
 
 * Remove the PluginAWeek namespace
