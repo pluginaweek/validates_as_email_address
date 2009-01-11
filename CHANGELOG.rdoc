@@ -1,6 +1,6 @@
 == master
 
-== 0.2.1 / 2008-01-11
+== 0.2.1 / 2009-01-11
 
 * Ensure correct encoding for regular expressions to be compatible with Ruby 1.9+
 
