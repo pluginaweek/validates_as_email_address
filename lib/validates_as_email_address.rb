@@ -3,6 +3,10 @@ require 'validates_as_email_address/rfc_1035'
 
 # Adds validations for email addresses
 module ValidatesAsEmailAddress
+  # The default error message to use for improperly formatted e-mail addresses
+  mattr_accessor :invalid_email_message
+  self.invalid_email_message = 'is an invalid email address'
+  
   # Validates whether the value of the specific attribute matches against the
   # RFC822/RFC1035 specification.
   # 
@@ -46,7 +50,7 @@ module ValidatesAsEmailAddress
   def validates_as_email_address(*attr_names)
     configuration = attr_names.last.is_a?(Hash) ? attr_names.pop : {}
     configuration.reverse_merge!(
-      :wrong_format => ActiveRecord::Errors.default_error_messages[:invalid_email],
+      :wrong_format => Object.const_defined?(:I18n) ? :invalid_email : ActiveRecord::Errors.default_error_messages[:invalid_email],
       :strict => true
     )
     
@@ -67,7 +71,12 @@ ActiveRecord::Base.class_eval do
   extend ValidatesAsEmailAddress
 end
 
-# Add error messages specific to this validation
-ActiveRecord::Errors.default_error_messages.update(
-  :invalid_email => 'is an invalid email address'
-)
+
+# Load default error messages
+if Object.const_defined?(:I18n) # Rails >= 2.2
+  I18n.load_path << "#{File.dirname(__FILE__)}/validates_as_email_address/locale.rb"
+else
+  ActiveRecord::Errors.default_error_messages.update(
+    :invalid_email => ValidatesAsEmailAddress.invalid_email_message
+  )
+end

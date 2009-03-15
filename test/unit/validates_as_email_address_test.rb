@@ -9,6 +9,7 @@ class ValidatesAsEmailAddressByDefaultTest < Test::Unit::TestCase
     user = new_user(:email => 'a@')
     assert !user.valid?
     assert user.errors.invalid?(:email)
+    assert_equal 'is an invalid email address', user.errors.on(:email).first
     
     user.email = 'a@a'
     assert user.valid?
