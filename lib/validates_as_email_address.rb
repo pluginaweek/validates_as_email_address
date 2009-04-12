@@ -31,6 +31,10 @@ module ValidatesAsEmailAddress
   # * <tt>:wrong_length</tt> - The error message if using the <tt>:is</tt>
   #   method and the attribute is the wrong size (default is:
   #   "is the wrong length (should be %d characters)")
+  # * <tt>:tokenizer</tt> - Specifies how to split up the attribute string.
+  #   (e.g. <tt>:tokenizer => lambda {|str| str.scan(/\w+/)}</tt> to count
+  #   words.) Defaults to <tt>lambda {|value| value.split(//)}</tt> which
+  #   counts individual characters. 
   # 
   # Configuration options for format:
   # * <tt>:wrong_format</tt> - A custom error message (default is:
@@ -38,6 +42,7 @@ module ValidatesAsEmailAddress
   # 
   # Miscellaneous configuration options:
   # * <tt>:allow_nil</tt> - Attribute may be nil; skip validation.
+  # * <tt>:allow_blank</tt> - Attribute may be blank; skip validation.
   # * <tt>:on</tt> - Specifies when this validation is active (default is
   #   :save, other options :create, :update)
   # * <tt>:if</tt> - Specifies a method, proc or string to call to determine if
