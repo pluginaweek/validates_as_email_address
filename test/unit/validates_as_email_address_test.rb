@@ -214,6 +214,86 @@ class ValidatesAsEmailAddressTest < Test::Unit::TestCase
     assert user.valid?
   end
   
+  def test_should_validate_if_on_event
+    User.validates_as_email_address :email, :on => :update
+    
+    user = create_user
+    user.email = 'a'
+    assert !user.valid?
+  end
+  
+  def test_should_not_validate_if_not_on_event
+    User.validates_as_email_address :email, :on => :create
+    
+    user = create_user
+    user.email = 'a'
+    assert user.valid?
+  end
+  
+  def test_should_not_validate_if_allow_nil_and_nil
+    User.validates_as_email_address :email, :allow_nil => true
+    
+    user = create_user
+    user.email = nil
+    assert user.valid?
+  end
+  
+  def test_should_validate_if_allow_nil_and_not_nil
+    User.validates_as_email_address :email, :allow_nil => true
+    
+    user = create_user
+    user.email = 'a'
+    assert !user.valid?
+  end
+  
+  def test_should_validate_if_not_allow_nil_and_nil
+    User.validates_as_email_address :email, :allow_nil => false
+    
+    user = create_user
+    user.email = nil
+    assert !user.valid?
+  end
+  
+  def test_should_validate_if_not_allow_nil_and_not_nil
+    User.validates_as_email_address :email, :allow_nil => false
+    
+    user = create_user
+    user.email = 'a'
+    assert !user.valid?
+  end
+  
+  def test_should_not_validate_if_allow_blank_and_blank
+    User.validates_as_email_address :email, :allow_blank => true
+    
+    user = create_user
+    user.email = ''
+    assert user.valid?
+  end
+  
+  def test_should_validate_if_allow_blank_and_not_blank
+    User.validates_as_email_address :email, :allow_blank => true
+    
+    user = create_user
+    user.email = 'a'
+    assert !user.valid?
+  end
+  
+  def test_should_validate_if_not_allow_blank_and_blank
+    User.validates_as_email_address :email, :allow_blank => false
+    
+    user = create_user
+    user.email = ''
+    assert !user.valid?
+  end
+  
+  def test_should_validate_if_not_allow_nil_and_not_nil
+    User.validates_as_email_address :email, :allow_blank => false
+    
+    user = create_user
+    user.email = 'a'
+    assert !user.valid?
+  end
+  
   def teardown
     User.class_eval do
       @validate_callbacks = ActiveSupport::Callbacks::CallbackChain.new
