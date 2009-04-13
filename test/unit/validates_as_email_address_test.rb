@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ValidatesAsEmailAddressByDefaultTest < Test::Unit::TestCase
+class ValidatesAsEmailAddressByDefaultTest < ActiveSupport::TestCase
   def setup
     User.validates_as_email_address :email
   end
@@ -69,7 +69,7 @@ class ValidatesAsEmailAddressByDefaultTest < Test::Unit::TestCase
   end
 end
 
-class ValidatesAsEmailAddressTest < Test::Unit::TestCase
+class ValidatesAsEmailAddressTest < ActiveSupport::TestCase
   def test_should_allow_minimum_length
     User.validates_as_email_address :email, :minimum => 8
     
@@ -303,7 +303,7 @@ class ValidatesAsEmailAddressTest < Test::Unit::TestCase
   end
 end
 
-class ValidatesAsEmailAddressUnrestrictedTest < Test::Unit::TestCase
+class ValidatesAsEmailAddressUnrestrictedTest < ActiveSupport::TestCase
   def setup
     User.validates_as_email_address :email, :strict => false
   end
