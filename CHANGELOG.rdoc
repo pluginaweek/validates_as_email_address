@@ -1,5 +1,7 @@
 == master
 
+* Update docs
+
 == 0.2.2 / 2009-03-15
 
 * Add support for Rails 2.2 i18n error messages [Saimon Moore]
