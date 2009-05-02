@@ -7,7 +7,8 @@ spec = Gem::Specification.new do |s|
   s.name              = 'validates_as_email_address'
   s.version           = '0.2.3'
   s.platform          = Gem::Platform::RUBY
-  s.summary           = 'Adds support for validating the format/length of email addresses'
+  s.summary           = 'Adds support for validating the format/length of email addresses in ActiveRecord'
+  s.description       = s.summary
   
   s.files             = FileList['{lib,test}/**/*'] + %w(CHANGELOG.rdoc init.rb LICENSE Rakefile README.rdoc) - FileList['test/app_root/{log,log/*,script,script/*}']
   s.require_path      = 'lib'
