@@ -54,6 +54,6 @@ To run against a specific version of Rails:
 
 * Cal Henderson - {Parsing Email Adresses in PHP}[http://iamcal.com/publish/articles/php/parsing_email]
 * Tim Fletcher - {Ruby Translation}[http://tfletcher.com/lib/rfc822.rb]
-* Dan Kubb[dan.kubb@autopilotmarketing.com]
-* Ximon Eighteen[ximon.eightee@int.greenpeace.org]
+* {Dan Kubb}[dan.kubb@autopilotmarketing.com]
+* {Ximon Eighteen}[ximon.eightee@int.greenpeace.org]
 * Thijs van der Vossen - validates_as_email[https://svn.greenpeace.org/repositories/rails_plugins/validates_as_email]
