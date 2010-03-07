@@ -6,7 +6,7 @@ require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s|
   s.name              = 'validates_as_email_address'
-  s.version           = '0.2.3'
+  s.version           = '0.2.4'
   s.platform          = Gem::Platform::RUBY
   s.summary           = 'Adds support for validating the format/length of email addresses in ActiveRecord'
   s.description       = s.summary

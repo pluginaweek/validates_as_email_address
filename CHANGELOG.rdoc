@@ -1,5 +1,7 @@
 == master
 
+== 0.2.4 / 2010-03-07
+
 * Release gems via rake-gemcutter instead of rubyforge
 
 == 0.2.3 / 2009-04-13
