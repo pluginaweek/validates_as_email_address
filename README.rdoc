@@ -7,7 +7,7 @@ email addresses.
 
 API
 
-* http://api.pluginaweek.org/validates_as_email_address
+* http://rdoc.info/projects/pluginaweek/validates_as_email_address
 
 Bugs
 
