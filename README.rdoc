@@ -1,4 +1,4 @@
-= validates_as_email_address
+= validates_as_email_address http://travis-ci.org/pluginaweek/validates_as_email_address.png
 
 +validates_as_email_address+ adds support for validating the format/length of
 email addresses.
@@ -16,6 +16,10 @@ Bugs
 Development
 
 * http://github.com/pluginaweek/validates_as_email_address
+
+Testing
+
+* http://travis-ci.org/pluginaweek/validates_as_email_address
 
 Source
 
