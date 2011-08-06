@@ -11,7 +11,7 @@ API
 
 Bugs
 
-* http://pluginaweek.lighthouseapp.com/projects/13293-validates_as_email_address
+* http://github.com/pluginaweek/validates_as_email_address/issues
 
 Development
 
