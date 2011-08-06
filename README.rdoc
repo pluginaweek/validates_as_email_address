@@ -21,6 +21,10 @@ Source
 
 * git://github.com/pluginaweek/validates_as_email_address.git
 
+Mailing List
+
+* http://groups.google.com/group/pluginaweek-talk
+
 == Description
 
 Consistently reliable email address validations are difficult to find and hard
